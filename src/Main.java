@@ -15,18 +15,18 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         // BUILDING TRANSLATION MODEL (PHRASE TABLE EXTRACTION)
-        //File berkeley_aligner_folder = new File("resources/aligner_output");
-        //String aligner_folder_path = berkeley_aligner_folder.getAbsolutePath();
+        File berkeley_aligner_folder = new File("resources/aligner_output");
+        String aligner_folder_path = berkeley_aligner_folder.getAbsolutePath();
 
-        //File translation_model_folder = new File("resources/translation_model");
-        //String translation_model_path = translation_model_folder.getAbsolutePath();
+        File translation_model_folder = new File("resources/translation_model");
+        String translation_model_path = translation_model_folder.getAbsolutePath();
 
-        String aligner_folder_path = args[0];
-        String translation_model_path = args[1];
+        //String aligner_folder_path = args[0];
+        //String translation_model_path = args[1];
 
-        String[] phrase_extract_args = new String[12];
+        String[] phrase_extract_args = new String[18];
         phrase_extract_args[0] = "-threads";
-        phrase_extract_args[1] = "2";
+        phrase_extract_args[1] = "1";
         phrase_extract_args[2] = "-inputDir";
         phrase_extract_args[3] = aligner_folder_path;
         phrase_extract_args[4] = "-outputDir";
@@ -37,6 +37,12 @@ public class Main {
         phrase_extract_args[9] = "true";
         phrase_extract_args[10] = "-orientationModelType";
         phrase_extract_args[11] = "msd2-bidirectional-fe";
+        phrase_extract_args[12] = "-symmetrization";
+        phrase_extract_args[13] = "grow-diag";
+        phrase_extract_args[14] = "-phiFilter";
+        phrase_extract_args[15] = "1e-4";
+        phrase_extract_args[16] = "-maxELen";
+        phrase_extract_args[17] = "5";
 
         //TODO: check why it did not calculate itself
         //phrase_extract_args[12] = "-maxLen";
