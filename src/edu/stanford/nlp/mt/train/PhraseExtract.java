@@ -633,8 +633,21 @@ public class PhraseExtract {
             String fe2 = aInvReader.readLine();
             String fe3 = aInvReader.readLine();
             if (!skipLine) {
-              GIZAWordAlignment gizaAlign = new GIZAWordAlignment(fe1, fe2,
-                  fe3, ef1, ef2, ef3);
+              GIZAWordAlignment gizaAlign = null;
+              try {
+                gizaAlign = new GIZAWordAlignment(fe1, fe2, fe3, ef1, ef2, ef3);
+              } catch (IndexOutOfBoundsException exp) {
+                System.out.println("Błędne wyrównanie GIZA+++, linia: "+lineNb);
+                skipLine = true;
+                continue;
+              }
+
+              if (gizaAlign == null) {
+                System.out.println("GIZA+++ equals NULL, linia: "+lineNb);
+                skipLine = true;
+                continue;
+              }
+
               SymmetricalWordAlignment symAlign = AlignmentSymmetrizer
                   .symmetrize(gizaAlign, symmetrizationType);
               symAlign.reverse();
