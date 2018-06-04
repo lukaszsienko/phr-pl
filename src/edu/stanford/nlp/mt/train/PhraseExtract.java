@@ -1,15 +1,7 @@
 package edu.stanford.nlp.mt.train;
 
 import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.io.IOException;
 import java.io.LineNumberReader;
@@ -620,8 +612,9 @@ public class PhraseExtract {
          
           
           boolean skipLine = (fLine.isEmpty() || eLine.isEmpty());
-
-          
+          if (skipLine) {
+            continue;
+          }
           
           // Read alignment:
           String aLine = null;
@@ -637,21 +630,71 @@ public class PhraseExtract {
               try {
                 gizaAlign = new GIZAWordAlignment(fe1, fe2, fe3, ef1, ef2, ef3);
               } catch (IndexOutOfBoundsException exp) {
-                System.out.println("Błędne wyrównanie GIZA+++, linia: "+lineNb);
-                skipLine = true;
+                System.out.println("\nBłędne wyrównanie GIZA+++, linia: "+lineNb);
                 continue;
               }
 
               if (gizaAlign == null) {
-                System.out.println("GIZA+++ equals NULL, linia: "+lineNb);
-                skipLine = true;
+                System.out.println("\nGIZA+++ equals NULL, linia: "+lineNb);
                 continue;
               }
 
+              /*if (lineNb >= 24679) {
+                //TODO remove this
+                List<SortedSet<Integer>> lista =  Arrays.asList(gizaAlign.e2f);
+                System.out.println("\n\n\n\nA) Wynikowy e2f po GIZAWordAlignment, lineNb = "+lineNb);
+                System.out.println("ef2 = "+ef2+"\n");
+                System.out.println("ef3 = "+ef3+"\n");
+                System.out.println("fe2 = "+fe2+"\n");
+                System.out.println("fe3 = "+fe3+"\n");
+                for (SortedSet<Integer> set : lista) {
+                  Iterator<Integer> iter = set.iterator();
+                  System.out.print("\nNastepny set: ");
+                  while (iter.hasNext()) {
+                    Integer liczba = iter.next();
+                    System.out.print(liczba+"  ");
+                  }
+                }
+                System.out.println("\nA) KONIEC e2f po GIZAWordAlignment\n");
+                //TODO remove this finished
+              }*/
+
+
               SymmetricalWordAlignment symAlign = AlignmentSymmetrizer
                   .symmetrize(gizaAlign, symmetrizationType);
+
+              /*if (lineNb >= 24679) {
+                //TODO remove this
+                List<SortedSet<Integer>> lista2 =  Arrays.asList(symAlign.e2f);
+                System.out.println("\nB) Wynikowy e2f po symetryzacji, lineNb = "+lineNb);
+                System.out.println("ef2 = "+ef2+"\n");
+                System.out.println("ef3 = "+ef3+"\n");
+                System.out.println("fe2 = "+fe2+"\n");
+                System.out.println("fe3 = "+fe3+"\n");
+                for (SortedSet<Integer> set : lista2) {
+                  Iterator<Integer> iter = set.iterator();
+                  System.out.print("\nNastepny set: ");
+                  while (iter.hasNext()) {
+                    Integer liczba = iter.next();
+                    System.out.print(liczba+"  ");
+                  }
+                }
+                System.out.println("\nB) KONIEC e2f po symetryzacji\n");
+                //TODO remove this finished
+              }*/
+
               symAlign.reverse();
               aLine = symAlign.toString().trim();
+
+              /*if (lineNb >= 24679) {
+                //TODO remove this
+                System.out.println("\nC) Stworzony aLine dla lineNb = " + lineNb);
+                System.out.println("ef2 = " + ef2+"\n");
+                System.out.println("ef3 = " + ef3+"\n");
+                System.out.println("fe2 = " + fe2+"\n");
+                System.out.println("fe3 = " + fe3+"\n");
+                System.out.println("aLine = " + aLine+"\n\n");
+              }*/
 
             }
           } else {
