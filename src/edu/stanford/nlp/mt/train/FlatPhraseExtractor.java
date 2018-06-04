@@ -38,7 +38,7 @@ public class FlatPhraseExtractor extends AbstractPhraseExtractor {
     int fsize = sent.f().size();
     int esize = sent.e().size();
 
-    if (fsize > MAX_SENT_LEN || esize > MAX_SENT_LEN) {
+    if (fsize >= MAX_SENT_LEN || esize >= MAX_SENT_LEN) {
       System.err.println("Warning: skipping too long sentence. Length: f="
               + fsize + " e=" + esize);
       return false;
