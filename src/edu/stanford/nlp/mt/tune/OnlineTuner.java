@@ -135,20 +135,8 @@ public final class OnlineTuner {
     
   /**
    * Constructor.
-   * 
-   * @param srcFile
-   * @param tgtFile
-   * @param phrasalIniFile
-   * @param initialWtsFile
-   * @param optimizerAlg
-   * @param optimizerFlags
-   * @param uniformStartWeights
-   * @param randomizeStartWeights
-   * @param expectedNumFeatures
-   * @param wrapBoundary 
-   * @param experimentName 
-   * @param prefixTuning 
-   * @throws IOException 
+   *
+   * @throws IOException
    */
   private OnlineTuner(String srcFile, String tgtFile, String phrasalIniFile, 
       String initialWtsFile, String optimizerAlg, String[] optimizerFlags, 
@@ -235,7 +223,7 @@ public final class OnlineTuner {
    * Load additional feature values from plain text file.
    * Features are only updated if not already present in weight vector.
    * 
-   * @param additionalFeatureWeights
+   * @param additionalFeatureWeightsFile
    */
   private void addAdditionalFeatureWeights(String additionalFeatureWeightsFile) {
     try {
@@ -260,7 +248,7 @@ public final class OnlineTuner {
    * Simulate training of a foreground model.
    * 
    * @param trainLocalTM
-   * @param faDistortionLimit
+   * @param localTMoutFile
    */
   private void trainLocalTM(boolean trainLocalTM, String localTMoutFile) { 
     this.localTMTraining = trainLocalTM;
