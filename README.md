@@ -3,4 +3,4 @@ This repository contains sources of Phrasal - a tool for Statistical Machine Tra
 
 All bugs that I noticed are fixed in this repo. 
 
-More information about the tool you can find here: https://nlp.stanford.edu/phrasal/
+You can find more information about the tool here: https://nlp.stanford.edu/phrasal/
